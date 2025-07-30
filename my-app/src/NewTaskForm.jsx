@@ -7,9 +7,9 @@ export function NewTaskForm({ onFormSubmit }) {
     function handleFormSubmit(e) {
         e.preventDefault();
         if(newTask.trim() !== ""){
-            onFormSubmit(newTask)
+            onFormSubmit(newTask.trim())
         };
-        setNewTask("");}
+        setNewTask("")}
 
     return (
     <form onSubmit={handleFormSubmit}>
@@ -19,7 +19,7 @@ export function NewTaskForm({ onFormSubmit }) {
             value={newTask}
             onChange={e => setNewTask(e.target.value)}
         />
-        <button className="add-button" type="submit">Add Task</button>
+        <button className="add-button" disabled={newTask.trim() === ""} type="submit">Add Task</button>
     </form>
             )
 }

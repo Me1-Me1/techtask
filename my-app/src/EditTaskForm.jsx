@@ -23,7 +23,10 @@ export default function EditTaskForm({
                     value={editedTask}
                     onChange={(e) => setEditedTask(e.target.value)}
                     />
-                <button className="edit-button" type="submit">Edit</button>
+                <div className="action-buttons">
+                     <button className="edit-button" type="submit" disabled={editedTask.trim() === ""}>Edit</button>
                 <button className="delete-button" onClick={() => setIsEditing(false)}>Cancel</button>
+                    </div>    
+               
             </form>)
 }

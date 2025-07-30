@@ -20,18 +20,32 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.5s ease;
+
 }
 
-.add-button {
+
+.add-button, .edit-button {
   background-color: rgb(132, 67, 193);
+}
+
+.add-button:hover, .edit-button:hover {
+  background-color: rgb(73, 3, 138);
 }
 
 .delete-button {
   background-color: rgb(245, 0, 98);
 }
 
-.edit-button {
-  background-color: rgb(72, 26, 116);
+.delete-button:hover {
+  background-color: rgb(124, 1, 51);
+}
+
+button:disabled,
+button[disabled]{
+ background-color: rgb(172, 175, 177);
+ transition: none;
+ pointer-events: none;
 }
 
 .done-checkbox {
@@ -39,13 +53,6 @@ button {
   transform: scale(4);
   margin-right: 25px;
   margin-left: 10px;
-}
-
-.delete-button, .edit-button {
-  padding: 8px 10px;
-  font-size: 1.4rem;
-  margin-left: 10px;
-  
 }
 
 input[type=text] {
@@ -60,6 +67,43 @@ input[type=text] {
 
 ul {
   padding: 0;
+}
+
+.task-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2px;
+}
+
+.task-items {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 2px solid;
+}
+
+.task-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.task-content.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.action-buttons {
+  padding: 8px 10px;
+  font-size: 1.4rem;
+  margin-left: auto;
+  width: 100px;
+  display: flex;
+  gap: 2px;
 }
 
 li {
