@@ -1,4 +1,7 @@
 import React, { useState } from "react"
+import { NewTaskForm } from "./NewTaskForm";
+import TaskItem from "./TaskItem";
+import EditTaskForm from "./EditTaskForm";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
@@ -9,21 +12,22 @@ function ToDoList() {
     function handleInputChange(e) {
         setNewTask(e.target.value)
     }
-
-    function handleEditInputChange(e) {
-        setCurrentTask({...currentTask, text: e.target.value});
-    }
-
-    function handleFormSubmit(e) {
+        function handleFormSubmit(e) {
         e.preventDefault();
+        setNewTask(e.target.value)
         if(newTask.trim() !== ""){
             setTasks(t => [...t, {id: t.length + 1, text: newTask, completed: false}]);
             setNewTask("");
         }
     }
 
+    function handleEditInputChange(e) {
+        setCurrentTask({...currentTask, text: e.target.value});
+    }
+
     function handleEditFormSubmit(e) {
         e.preventDefault();
+        setCurrentTask({...currentTask, text: e.target.value});
         handleEditedTask(currentTask.id, currentTask)
     }
 
@@ -58,38 +62,25 @@ function ToDoList() {
     return (
         <div class="to-do-list">
             <h1>To Do List</h1>
-            {isEditing ? (
-                <form onSubmit={handleEditFormSubmit}>
-                    <input type="text"
-                    value={currentTask.text}
-                    onChange={handleEditInputChange}></input>
-                    <button className="edit-button" type="submit">Edit</button>
-                    <button className="delete-button" onClick={() => setIsEditing(false)}>Cancel</button>
-                </form>
-            ) : (
-            <form onSubmit={handleFormSubmit}>
-                <input type="text"
-                placeholder="Enter a task"
-                value={newTask}
-                onChange={handleInputChange}/>
-                <button className="add-button" type="submit">Add Task</button>
-            </form>)}
-
+            {isEditing ? ( <EditTaskForm 
+                currentTask={currentTask}
+                setIsEditing={setIsEditing}
+                onEditFormChange={handleEditInputChange}
+                onEditFormSubmit={handleEditFormSubmit}
+            />   
+            ) : ( <NewTaskForm 
+                    task={newTask}
+                    onFormChange={handleInputChange}
+                    onFormSubmit={handleFormSubmit}
+            />)}
             <ul>
                 {tasks.map((task) => 
-                <li key={task.id}> 
-                <span className="task-item" style={{textDecoration: task.completed ? "line-through" : "none", opacity: task.completed ? 0.7 : 1}}>
-                    <input 
-                        className="done-checkbox"
-                        type="checkbox"
-                        checked={task.completed}
-                        onChange={() => handleTaskCompletion(task.id)}
-                    />
-                    {task.text}
-                </span>
-                    <button className="edit-button" onClick={() => handleEdit(task)}>Edit</button> 
-                    <button className="delete-button" onClick={() => handleDelete(task.id)}>Delete</button>  
-                </li>)}
+                <TaskItem
+                    task={task}
+                    onCompletionChange={handleTaskCompletion}
+                    onEditClick={handleEdit}
+                    onDeleteCLick={handleDelete}
+                />)}
             </ul>
         </div>
     );   
