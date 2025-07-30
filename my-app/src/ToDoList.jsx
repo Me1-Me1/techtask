@@ -13,23 +13,9 @@ function ToDoList() {
             });
     }
 
-    function handleEditInputChange(e) {
-        setCurrentTask({...currentTask, text: e.target.value});
-    }
+    function handleEditedTask(editedTask) {
+        setTasks(tasks.map(task => task.id === editedTask.id ? editedTask : task));
 
-    function handleEditFormSubmit(e) {
-        e.preventDefault();
-        setCurrentTask({...currentTask, text: e.target.value});
-        handleEditedTask(currentTask.id, currentTask)
-    }
-
-    function handleEditedTask(id, editedTask) {
-        if(currentTask.text.trim() !== ""){
-            const edited = tasks.map((task) => {
-            return task.id === id ? editedTask : task;
-        }) 
-        setTasks(edited);}
-        setIsEditing(false);
 }
 
     function handleEdit(task) {
@@ -58,8 +44,7 @@ function ToDoList() {
             {isEditing ? ( <EditTaskForm 
                 currentTask={currentTask}
                 setIsEditing={setIsEditing}
-                onEditFormChange={handleEditInputChange}
-                onEditFormSubmit={handleEditFormSubmit}
+                onEditFormSubmit={handleEditedTask}
             />   
             ) : ( <NewTaskForm 
                     onFormSubmit={handleFormSubmit}
