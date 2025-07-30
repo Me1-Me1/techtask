@@ -8,7 +8,8 @@ export function NewTaskForm({ onFormSubmit }) {
         e.preventDefault();
         if(newTask.trim() !== ""){
             onFormSubmit(newTask)
-        }}
+        };
+        setNewTask("");}
 
     return (
     <form onSubmit={handleFormSubmit}>
