@@ -5,20 +5,12 @@ import EditTaskForm from "./EditTaskForm";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
-    const [newTask, setNewTask] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [currentTask, setCurrentTask] = useState({});
 
-    function handleInputChange(e) {
-        setNewTask(e.target.value)
-    }
-        function handleFormSubmit(e) {
-        e.preventDefault();
-        setNewTask(e.target.value)
-        if(newTask.trim() !== ""){
-            setTasks(t => [...t, {id: t.length + 1, text: newTask, completed: false}]);
-            setNewTask("");
-        }
+    function handleFormSubmit(task) {
+        setTasks(t => {return [...t, {id: t.length + 1, text: task, completed: false},]
+            });
     }
 
     function handleEditInputChange(e) {
@@ -32,12 +24,13 @@ function ToDoList() {
     }
 
     function handleEditedTask(id, editedTask) {
-        const edited = tasks.map((task) => {
+        if(currentTask.text.trim() !== ""){
+            const edited = tasks.map((task) => {
             return task.id === id ? editedTask : task;
-        })
+        }) 
+        setTasks(edited);}
         setIsEditing(false);
-        setTasks(edited);
-    }
+}
 
     function handleEdit(task) {
         setIsEditing(true);
@@ -69,8 +62,6 @@ function ToDoList() {
                 onEditFormSubmit={handleEditFormSubmit}
             />   
             ) : ( <NewTaskForm 
-                    task={newTask}
-                    onFormChange={handleInputChange}
                     onFormSubmit={handleFormSubmit}
             />)}
             <ul>
