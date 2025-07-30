@@ -54,7 +54,8 @@ input[type=text] {
   border: 2px solid;
   border-radius: 5px;
   color: rgb(125, 124, 124);
-    background-color: rgb(220, 181, 242);
+  background-color: rgb(220, 181, 242);
+  
 }
 
 ul {

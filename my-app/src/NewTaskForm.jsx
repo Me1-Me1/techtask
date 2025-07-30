@@ -13,6 +13,7 @@ export function NewTaskForm({ onFormSubmit }) {
     return (
     <form onSubmit={handleFormSubmit}>
         <input type="text"
+            maxLength={64}
             placeholder="Enter a task"
             value={newTask}
             onChange={e => setNewTask(e.target.value)}

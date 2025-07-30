@@ -19,6 +19,7 @@ export default function EditTaskForm({
 
     return (<form onSubmit={onEditSubmit} >
                 <input type="text"
+                    maxLength={64}
                     value={editedTask}
                     onChange={(e) => setEditedTask(e.target.value)}
                     />
